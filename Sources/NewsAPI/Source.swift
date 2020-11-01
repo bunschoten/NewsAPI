@@ -30,6 +30,25 @@ public struct Source {
     /// The country.
     public var country: Country
     
+    /// Initializes a source.
+    /// - Parameters:
+    ///   - id: ID of the source
+    ///   - name: name
+    ///   - overview: overview text
+    ///   - url: URL to the source's web site, or `nil` if not available
+    ///   - category: category
+    ///   - language: language
+    ///   - country: country
+    public init(id: String, name: String, overview: String, url: URL?, category: Category, language: Language, country: Country) {
+        self.id = id
+        self.name = name
+        self.overview = overview
+        self.url = url
+        self.category = category
+        self.language = language
+        self.country = country
+    }
+    
 }
 
 extension Source: Equatable {

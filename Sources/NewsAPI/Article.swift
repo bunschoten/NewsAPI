@@ -30,6 +30,25 @@ public struct Article {
     /// The ID of the source.
     public var sourceId: String
     
+    /// Initializes an article.
+    /// - Parameters:
+    ///   - author: name of the author, or `nil` if unknown
+    ///   - title: title
+    ///   - overview: overview text or the abstract
+    ///   - url: URL to the article
+    ///   - imageURL: url to an image of the article, or `nil` if there is no image available
+    ///   - publicationDate: date and time of publication, or `nil` if unknown
+    ///   - sourceId: ID of the source
+    public init(author: String?, title: String, overview: String, url: URL, imageURL: URL?, publicationDate: Date?, sourceId: String) {
+        self.author = author
+        self.title = title
+        self.overview = overview
+        self.url = url
+        self.imageURL = imageURL
+        self.publicationDate = publicationDate
+        self.sourceId = sourceId
+    }
+    
 }
 
 extension Article: Equatable {
