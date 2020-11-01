@@ -75,6 +75,11 @@ extension Article: Identifiable {
 
 extension Article: Codable {
     
+    struct SourceRef: Codable {
+        let id: String
+        let name: String
+    }
+    
     enum CodingKeys: String, CodingKey {
         case author
         case title
@@ -82,7 +87,7 @@ extension Article: Codable {
         case url
         case imageURL = "urlToImage"
         case publicationDate = "publishedAt"
-        case sourceId = "source"
+        case sourceRef = "source"
     }
     
     public init(from decoder: Decoder) throws {
@@ -105,13 +110,15 @@ extension Article: Codable {
             publicationDate = date
         }
         
-        let sourceId = try container.decodeIfPresent(String.self, forKey: .sourceId) ?? ""
+        let sourceRef = try container.decodeIfPresent(SourceRef.self, forKey: .sourceRef)
         
-        self.init(author: author, title: title, overview: overview, url: url, imageURL: imageURL, publicationDate: publicationDate, sourceId: sourceId)
+        self.init(author: author, title: title, overview: overview, url: url, imageURL: imageURL, publicationDate: publicationDate, sourceId: sourceRef?.id ?? "")
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        let sourceRef = SourceRef(id: sourceId, name: "")
         
         try container.encodeIfPresent(author, forKey: .author)
         try container.encode(title, forKey: .title)
@@ -119,7 +126,7 @@ extension Article: Codable {
         try container.encode(url, forKey: .url)
         try container.encodeIfPresent(imageURL, forKey: .imageURL)
         try container.encodeIfPresent(publicationDate, forKey: .publicationDate)
-        try container.encode(sourceId, forKey: .sourceId)
+        try container.encode(sourceRef, forKey: .sourceRef)
     }
     
 }
