@@ -17,7 +17,7 @@ public protocol QueryParams {
 
 public struct SourcesParams: QueryParams {
     
-    public var category: Category?
+    public var category: NewsCategory?
     public var language: Language?
     public var country: Country?
     
@@ -50,7 +50,7 @@ public struct SourcesParams: QueryParams {
 public struct TopHeadlinesParams: QueryParams {
     
     public var country: Country?
-    public var category: Category?
+    public var category: NewsCategory?
     public var sources: [Source]
     public var searchTerm: String?
     public var paging: Paging

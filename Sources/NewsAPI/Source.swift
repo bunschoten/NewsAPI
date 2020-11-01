@@ -22,7 +22,7 @@ public struct Source {
     public var url: URL?
     
     /// The category.
-    public var category: Category
+    public var category: NewsCategory
     
     /// The language.
     public var language: Language
@@ -39,7 +39,7 @@ public struct Source {
     ///   - category: category
     ///   - language: language
     ///   - country: country
-    public init(id: String, name: String, overview: String, url: URL?, category: Category, language: Language, country: Country) {
+    public init(id: String, name: String, overview: String, url: URL?, category: NewsCategory, language: Language, country: Country) {
         self.id = id
         self.name = name
         self.overview = overview
@@ -95,7 +95,7 @@ extension Source: Codable {
             url = nil // ignoring any error decoding a URL
         }
         
-        let category = try container.decode(Category.self, forKey: .category)
+        let category = try container.decode(NewsCategory.self, forKey: .category)
         let language = try container.decode(Language.self, forKey: .language)
         let country = try container.decode(Country.self, forKey: .country)
         
@@ -128,9 +128,9 @@ extension Array where Element == Source {
     
     /// Returns a dictionary grouping all sources by their categories.
     /// - Returns: dictionary of sources by category
-    public func groupedByCategory() -> [Category: [Source]] {
+    public func groupedByNewsCategory() -> [NewsCategory: [Source]] {
         let categories = Set(self.map { $0.category })
-        var grouped: [Category: [Source]] = [:]
+        var grouped: [NewsCategory: [Source]] = [:]
         
         for category in categories {
             grouped[category] = self.filter { $0.category == category }

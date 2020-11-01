@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct Category {
+public struct NewsCategory {
     
     /// The slug identifying this category.
     public var slug: String
@@ -36,20 +36,20 @@ public struct Category {
             .map { $0 == "and" ? "&" : $0.capitalized }
             .joined(separator: " ")
         
-        self.init(slug: slug, name: NSLocalizedString(name, comment: "Category Name"))
+        self.init(slug: slug, name: NSLocalizedString(name, comment: "NewsCategory Name"))
     }
     
 }
 
-extension Category: Equatable {
+extension NewsCategory: Equatable {
     
-    public static func == (lhs: Category, rhs: Category) -> Bool {
+    public static func == (lhs: NewsCategory, rhs: NewsCategory) -> Bool {
         lhs.slug == rhs.slug
     }
     
 }
 
-extension Category: Hashable {
+extension NewsCategory: Hashable {
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(slug)
@@ -57,13 +57,13 @@ extension Category: Hashable {
     
 }
 
-extension Category: Identifiable {
+extension NewsCategory: Identifiable {
     
     public var id: String { slug }
     
 }
 
-extension Category: Codable {
+extension NewsCategory: Codable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -78,28 +78,28 @@ extension Category: Codable {
     
 }
 
-extension Category: CustomStringConvertible {
+extension NewsCategory: CustomStringConvertible {
     
     public var description: String { name }
     
 }
 
-extension Category {
+extension NewsCategory {
     
-    public static let business = Category(slug: "business")
-    public static let entertainment = Category(slug: "entertainment")
-    public static let general = Category(slug: "general")
-    public static let health = Category(slug: "health")
-    public static let science = Category(slug: "science")
-    public static let sports = Category(slug: "sports")
-    public static let technology = Category(slug: "technology")
+    public static let business = NewsCategory(slug: "business")
+    public static let entertainment = NewsCategory(slug: "entertainment")
+    public static let general = NewsCategory(slug: "general")
+    public static let health = NewsCategory(slug: "health")
+    public static let science = NewsCategory(slug: "science")
+    public static let sports = NewsCategory(slug: "sports")
+    public static let technology = NewsCategory(slug: "technology")
     
 }
 
-extension Array where Element == Category {
+extension Array where Element == NewsCategory {
     
     /// Array of all categories available in filteringn sources and top headlines.
-    public static let availableCategories: [Category] = [.business, .entertainment, .general, .health, .science, .sports, .technology]
+    public static let availableCategories: [NewsCategory] = [.business, .entertainment, .general, .health, .science, .sports, .technology]
         .sorted(by: { $0.name < $1.name })
     
 }
@@ -108,7 +108,7 @@ extension URLQueryItem {
     
     /// Initializes a URL query item with the given category.
     /// - Parameter category: category
-    init(category: Category) {
+    init(category: NewsCategory) {
         self.init(name: "category", value: category.slug)
     }
     
