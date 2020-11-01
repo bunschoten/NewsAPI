@@ -75,9 +75,9 @@ extension Article: Identifiable {
 
 extension Article: Codable {
     
-    struct SourceRef: Codable {
-        let id: String?
-        let name: String?
+    enum SourceRefKeys: String, CodingKey {
+        case id
+        case name
     }
     
     enum CodingKeys: String, CodingKey {
@@ -110,23 +110,23 @@ extension Article: Codable {
             publicationDate = date
         }
         
-        let sourceRef = try container.decodeIfPresent(SourceRef.self, forKey: .sourceRef)
+        let sourceRef = try container.nestedContainer(keyedBy: SourceRefKeys.self, forKey: .sourceRef)
+        let sourceId = try sourceRef.decodeIfPresent(String.self, forKey: .id)
         
-        self.init(author: author, title: title, overview: overview, url: url, imageURL: imageURL, publicationDate: publicationDate, sourceId: sourceRef?.id ?? "")
+        self.init(author: author, title: title, overview: overview, url: url, imageURL: imageURL, publicationDate: publicationDate, sourceId: sourceId ?? "")
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        
-        let sourceRef = SourceRef(id: sourceId, name: "")
-        
         try container.encodeIfPresent(author, forKey: .author)
         try container.encode(title, forKey: .title)
         try container.encode(overview, forKey: .overview)
         try container.encode(url, forKey: .url)
         try container.encodeIfPresent(imageURL, forKey: .imageURL)
         try container.encodeIfPresent(publicationDate, forKey: .publicationDate)
-        try container.encode(sourceRef, forKey: .sourceRef)
+        
+        var sourceRef = container.nestedContainer(keyedBy: SourceRefKeys.self, forKey: .sourceRef)
+        try sourceRef.encode(sourceId, forKey: .id)
     }
     
 }
