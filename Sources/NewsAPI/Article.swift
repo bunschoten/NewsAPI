@@ -76,8 +76,8 @@ extension Article: Identifiable {
 extension Article: Codable {
     
     struct SourceRef: Codable {
-        let id: String
-        let name: String
+        let id: String?
+        let name: String?
     }
     
     enum CodingKeys: String, CodingKey {
