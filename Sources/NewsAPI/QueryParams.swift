@@ -17,9 +17,15 @@ public protocol QueryParams {
 
 public struct SourcesParams: QueryParams {
     
-    var category: Category? = nil
-    var language: Language? = nil
-    var country: Country? = nil
+    public var category: Category?
+    public var language: Language?
+    public var country: Country?
+    
+    public init() {
+        self.category = nil
+        self.language = nil
+        self.country = nil
+    }
     
     public func buildURLQueryItems() -> [URLQueryItem] {
         var items: [URLQueryItem] = []
@@ -43,11 +49,19 @@ public struct SourcesParams: QueryParams {
 
 public struct TopHeadlinesParams: QueryParams {
     
-    var country: Country? = nil
-    var category: Category? = nil
-    var sources: [Source] = []
-    var searchTerm: String? = nil
-    var paging = Paging()
+    public var country: Country?
+    public var category: Category?
+    public var sources: [Source]
+    public var searchTerm: String?
+    public var paging: Paging
+    
+    public init() {
+        self.country = nil
+        self.category = nil
+        self.sources = []
+        self.searchTerm = nil
+        self.paging = Paging()
+    }
     
     public func buildURLQueryItems() -> [URLQueryItem] {
         var items: [URLQueryItem] = []
@@ -83,16 +97,29 @@ public struct TopHeadlinesParams: QueryParams {
 
 public struct EverythingParams: QueryParams {
     
-    var searchTerm: String? = nil
-    var titleSearchTerm: String? = nil
-    var sources: [Source] = []
-    var domains: [String] = []
-    var excludedDomains: [String] = []
-    var minDate: Date? = nil
-    var maxDate: Date? = nil
-    var language: Language? = nil
-    var sortOrder: SortOrder? = nil
-    var paging = Paging()
+    public var searchTerm: String?
+    public var titleSearchTerm: String?
+    public var sources: [Source]
+    public var domains: [String]
+    public var excludedDomains: [String]
+    public var minDate: Date?
+    public var maxDate: Date?
+    public var language: Language?
+    public var sortOrder: SortOrder?
+    public var paging: Paging
+    
+    public init() {
+        self.searchTerm = nil
+        self.titleSearchTerm = nil
+        self.sources = []
+        self.domains = []
+        self.excludedDomains = []
+        self.minDate = nil
+        self.maxDate = nil
+        self.language = nil
+        self.sortOrder = nil
+        self.paging = Paging()
+    }
     
     public func buildURLQueryItems() -> [URLQueryItem] {
         let isoDateFormatter = DateFormatter()

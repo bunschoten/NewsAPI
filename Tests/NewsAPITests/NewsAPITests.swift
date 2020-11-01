@@ -12,7 +12,7 @@ final class NewsAPITests: XCTestCase {
     
     func testInvalidApiKey() {
         let expectation = self.expectation(description: #function)
-        let params = SourcesParams(category: nil, language: nil, country: nil)
+        let params = SourcesParams()
         var receivedError: Swift.Error? = nil
         
         Source.fetch(from: .sources(apiKey: "x", params: params))
@@ -50,7 +50,7 @@ final class NewsAPITests: XCTestCase {
     
     func testSources() {
         let expectation = self.expectation(description: #function)
-        let params = SourcesParams(category: nil, language: nil, country: nil)
+        let params = SourcesParams()
         var receivedSources: [Source] = []
         var receivedError: Swift.Error? = nil
         
