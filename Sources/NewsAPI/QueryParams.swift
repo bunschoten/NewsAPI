@@ -37,7 +37,8 @@ public struct SourcesParams: QueryParams {
         if let language = language {
             items.append(URLQueryItem(language: language))
         } else {
-            items.append(URLQueryItem(name: "language", value: "de,en"))
+            items.append(URLQueryItem(name: "language", value: "de"))
+            items.append(URLQueryItem(name: "language", value: "en"))
         }
         
         if let country = country {
